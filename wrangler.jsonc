@@ -1,0 +1,8 @@
+{
+	"name": "om-exports",
+	"compatibility_date": "2026-09-15",
+	"account_id": "615ac4dba4674910159e00bc05247957",
+	"assets": {
+		"directory": "./omex-site-main/omex-site-main"
+	}
+}

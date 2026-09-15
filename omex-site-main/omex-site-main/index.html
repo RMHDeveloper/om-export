@@ -32,7 +32,7 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; scroll-padding-top: var(--header-total); scroll-snap-type: y proximity; }
+  html { scroll-behavior: smooth; scroll-padding-top: var(--header-total); }
   body {
     font-family: var(--font);
     background: var(--bg);
@@ -94,7 +94,6 @@
      ============================================================ */
   section { padding: clamp(2.2rem, 6vh, 4.5rem) clamp(1.2rem, 6vw, 5rem); }
   section:nth-of-type(even) { background: var(--bg-alt); }
-  #home, #about, #gallery, #contact { scroll-snap-align: start; }
   #about {
     padding-top: clamp(0.8rem, 2vh, 1.4rem);
     padding-bottom: clamp(0.8rem, 2vh, 1.4rem);
