@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Products — OMEX Stones</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap">
+<style>
+  :root {
+    --bg:         #ffffff;
+    --bg-alt:     #f1f6fc;
+    --surface:    #ffffff;
+    --ink:        #16283d;
+    --muted:      #5b6b7f;
+    --blue:       #1668b3;
+    --blue-dark:  #0f4f8c;
+    --blue-tint:  #e2edfb;
+    --header-bg:  #10385c;
+    --brand-cyan: #00a8e8;
+    --font-serif: Georgia, "Times New Roman", Times, serif;
+    --line:       #dbe4ef;
+    --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --header-h: 90px;
+    --subbar-h: 0px;
+    --header-total: calc(var(--header-h) + var(--subbar-h));
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+
+  /* ---------------- HEADER (blue bar) ---------------- */
+  header.site-header {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--header-total);
+    display: flex; flex-direction: column;
+    background: var(--header-bg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 2px 16px rgba(9, 39, 66, 0.25);
+    z-index: 1000;
+  }
+  .header-top { height: var(--header-h); display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 0 clamp(1rem, 4vw, 3rem); }
+
+  .logo { display: flex; align-items: center; height: 100%; text-decoration: none; }
+  .logo .logo-img { height: clamp(64px, 10.5vw, 86px); width: auto; display: block; }
+
+  nav.main-nav ul { list-style: none; display: flex; gap: clamp(0.6rem, 2.6vw, 2.2rem); }
+  nav.main-nav a {
+    text-decoration: none; color: #ffffff;
+    font-size: clamp(0.72rem, 1.4vw, 0.85rem); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.4px;
+    padding: 0.4rem 0.1rem; position: relative; transition: color 0.25s ease;
+  }
+  nav.main-nav a::after {
+    content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px;
+    background: #7db4e6; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+  }
+  nav.main-nav a:hover, nav.main-nav a.active { color: #bfe0ff; }
+  nav.main-nav a.active::after { transform: scaleX(1); }
+
+  .burger { display: none; flex-direction: column; gap: 5px; background: none; border: 0; cursor: pointer; padding: 6px; }
+  .burger span { width: 26px; height: 3px; background: #ffffff; border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
+  .burger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .burger.open span:nth-child(2) { opacity: 0; }
+  .burger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  /* ---------------- PAGE BANNER ---------------- */
+  .page-banner {
+    margin-top: var(--header-total);
+    padding: clamp(1rem, 2.4vh, 1.6rem) clamp(1.2rem, 6vw, 5rem) clamp(1.6rem, 4vh, 2.4rem);
+    background: var(--bg-alt);
+    border-bottom: 1px solid var(--line);
+    text-align: center;
+  }
+  .page-banner .eyebrow { color: var(--blue); text-transform: uppercase; letter-spacing: 4px; font-size: 0.72rem; font-weight: 700; }
+  .page-banner h1 { font-size: clamp(1.8rem, 5vw, 2.9rem); font-weight: 800; line-height: 1.05; margin: -0.3rem 0 0.4rem; color: var(--ink); }
+  .page-banner p { color: var(--muted); font-size: clamp(0.9rem, 1.7vw, 1rem); max-width: 640px; margin: 0 auto; }
+  .crumbs { margin-bottom: 0.8rem; font-size: 0.75rem; color: var(--muted); }
+  .crumbs a { color: var(--blue); text-decoration: none; }
+
+  /* ---------------- FILTERS ---------------- */
+  .filters {
+    display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem;
+    padding: clamp(1.4rem, 4vh, 2.2rem) clamp(1.2rem, 6vw, 5rem) 0;
+  }
+  .filters button {
+    font-family: inherit;
+    border: 1px solid var(--line);
+    background: #fff;
+    color: var(--muted);
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .filters button:hover { border-color: var(--blue); color: var(--blue); }
+  .filters button.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+  /* ---------------- PRODUCT GRID ---------------- */
+  .grid {
+    max-width: 1200px;
+    margin: clamp(1.4rem, 4vh, 2.2rem) auto 0;
+    padding: 0 clamp(1.2rem, 6vw, 5rem) clamp(3rem, 8vh, 5rem);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: clamp(0.8rem, 2vw, 1.4rem);
+  }
+  figure.item {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(22, 40, 61, 0.07);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  figure.item.hide { display: none; }
+  figure.item:hover { transform: translateY(-5px); border-color: var(--blue); box-shadow: 0 16px 34px rgba(22, 40, 61, 0.16); }
+  figure.item .shot {
+    display: block; width: 100%; border: 0; margin: 0; padding: 0;
+    background: none; font: inherit; text-align: inherit; cursor: pointer;
+  }
+  figure.item img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; background: var(--bg-alt); }
+  figure.item figcaption { padding: 0.7rem 0.85rem 0.9rem; }
+  figure.item .cat {
+    display: inline-block; font-size: 0.62rem; font-weight: 700; letter-spacing: 1px;
+    text-transform: uppercase; color: var(--blue); background: var(--blue-tint);
+    padding: 2px 8px; border-radius: 999px; margin-bottom: 0.4rem;
+  }
+  figure.item b { display: block; font-size: 0.85rem; color: var(--ink); font-weight: 600; line-height: 1.35; }
+
+  /* ---------------- FOOTER (blue bar) ---------------- */
+  footer.site-footer {
+    background: var(--header-bg); color: #cfe0ef;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding: clamp(0.7rem, 2vh, 1.15rem) clamp(1.2rem, 6vw, 5rem) 0.7rem;
+  }
+  .foot-top {
+    max-width: 1080px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1.2rem 3rem; flex-wrap: wrap;
+  }
+  .foot-brand { max-width: 460px; }
+  .foot-brand .logo-img { height: clamp(52px, 8.5vw, 70px); width: auto; display: block; }
+  .foot-brand p { margin-top: 0.5rem; color: #9fc2e0; font-size: 0.82rem; line-height: 1.6; }
+  .foot-nav { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; }
+  .foot-nav a { color: #cfe0ef; text-decoration: none; font-size: 0.76rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1.3px; transition: color 0.2s ease; }
+  .foot-nav a:hover { color: #fff; }
+  .foot-bottom { max-width: 1080px; margin: 1.5rem auto 0; padding-top: 1.1rem; border-top: 1px solid rgba(255, 255, 255, 0.12); font-size: 0.72rem; color: #9fc2e0; text-align: center; }
+
+  @media (max-width: 1000px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 900px) {
+    nav.main-nav {
+      position: fixed; top: var(--header-total); right: 0; width: min(72vw, 280px);
+      background: var(--header-bg); border-left: 1px solid rgba(255,255,255,0.12); border-bottom: 1px solid rgba(255,255,255,0.12);
+      transform: translateX(110%); transition: transform 0.32s ease;
+      padding: 1.2rem 1.4rem 1.6rem; box-shadow: -12px 18px 40px rgba(9, 39, 66, 0.3);
+    }
+    nav.main-nav.open { transform: translateX(0); }
+    nav.main-nav ul { flex-direction: column; gap: 0.3rem; }
+    nav.main-nav a { display: block; padding: 0.7rem 0.1rem; }
+    .burger { display: flex; }
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .foot-top { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .filters {
+      display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem; padding-left: 1rem; padding-right: 1rem;
+    }
+    .filters button {
+      width: 100%; padding: 0.5rem 0.4rem;
+      font-size: 0.62rem; letter-spacing: 0.4px;
+      white-space: normal; line-height: 1.25;
+    }
+    .filters button[data-filter="all"] { grid-column: 1 / -1; max-width: 140px; margin: 0 auto; }
+  }
+  @media (max-width: 520px) {
+    .grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* ---------------- LIGHTBOX ---------------- */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 3000;
+    display: none; align-items: center; justify-content: center;
+  }
+  .lightbox.open { display: flex; }
+  .lb-backdrop {
+    position: absolute; inset: 0;
+    background: rgba(8, 14, 20, 0.82);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  }
+  .lb-close, .lb-arrow {
+    position: fixed; z-index: 2;
+    border-radius: 50%; border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1); color: #fff;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s ease, border-color 0.2s ease;
+  }
+  .lb-close:hover, .lb-arrow:hover { background: rgba(255, 255, 255, 0.24); border-color: rgba(255, 255, 255, 0.5); }
+  .lb-close { top: 18px; right: 18px; width: 44px; height: 44px; font-size: 1.6rem; line-height: 1; }
+  .lb-arrow { top: 50%; transform: translateY(-50%); width: 50px; height: 50px; font-size: 1.4rem; }
+  .lb-prev { left: 16px; }
+  .lb-next { right: 16px; }
+  .lb-content {
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column; align-items: center; gap: 1rem;
+    max-width: min(94vw, 1000px); max-height: 90vh;
+    padding: 0 clamp(1rem, 6vw, 3rem);
+  }
+  .lb-stage { flex: 0 1 auto; min-height: 0; max-width: 100%; }
+  .lb-img { max-width: 100%; max-height: 62vh; object-fit: contain; display: block; border-radius: 8px; box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); }
+  .lb-caption { text-align: center; color: #fff; }
+  .lb-caption .cat {
+    display: block; margin-bottom: 0.25rem; color: #9fc2e0;
+    font-size: 0.66rem; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+  }
+  .lb-caption b { font-size: 0.95rem; font-weight: 600; }
+  .lb-count { margin-top: 0.2rem; color: #9fc2e0; font-size: 0.72rem; }
+
+  @media (max-width: 700px) {
+    .lb-arrow { width: 40px; height: 40px; font-size: 1.1rem; }
+    .lb-prev { left: 6px; }
+    .lb-next { right: 6px; }
+    .lb-content { padding: 0 3.4rem; }
+  }
+</style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-top">
+      <a class="logo" href="index.html#home">
+        <img class="logo-img" src="images/logo.png" alt="OMEX Stones" />
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="index.html#home">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#gallery" class="active">Products</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="page-banner">
+    <div class="crumbs"><a href="index.html#home">Home</a> &nbsp;/&nbsp; Products</div>
+    <span class="eyebrow">Our Products</span>
+    <h1>Monument Gallery</h1>
+    <p>A selection of black granite monuments, sculpted memorials, hand-carved statuary and
+       fine hand-carved detailing crafted from Indian granite &mdash; polished, honed, flamed and hand-carved to order.</p>
+  </section>
+
+  <div class="filters" id="filters">
+    <button class="active" data-filter="all">All</button>
+    <button data-filter="black">Black Granite Monument</button>
+    <button data-filter="sculpted">Sculpted Granite Memorial</button>
+    <button data-filter="statuary">Hand-carved Statuary</button>
+    <button data-filter="detailing">Hand-carved Detailing</button>
+  </div>
+
+  <div class="grid" id="grid"><!-- items via JS --></div>
+
+  <footer class="site-footer">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img class="logo-img" src="images/logo.png" alt="OMEX Stones" />
+        <p>Sourcing the best natural stone products &mdash; granite tombstones, slabs and
+           hand-crafted, custom-made granite articles &mdash; delivered to your door.</p>
+      </div>
+      <nav class="foot-nav">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#gallery">Products</a>
+        <a href="index.html#contact">Contact</a>
+      </nav>
+    </div>
+    <div class="foot-bottom">&copy; <span id="year"></span> OMEX Stones LLC &mdash; Natural Stone Products. All rights reserved.</div>
+  </footer>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Product image viewer">
+    <div class="lb-backdrop" id="lbBackdrop"></div>
+    <button class="lb-close" id="lbClose" type="button" aria-label="Close">&times;</button>
+    <button class="lb-arrow lb-prev" id="lbPrev" type="button" aria-label="Previous image">&#10094;</button>
+    <button class="lb-arrow lb-next" id="lbNext" type="button" aria-label="Next image">&#10095;</button>
+    <div class="lb-content">
+      <div class="lb-stage"><img class="lb-img" id="lbImg" src="" alt="" /></div>
+      <div class="lb-caption">
+        <span class="cat" id="lbCat"></span>
+        <b id="lbTitle"></b>
+        <div class="lb-count" id="lbCount"></div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(function () {
+  "use strict";
+
+  var nav    = document.getElementById("mainNav");
+  var burger = document.getElementById("burger");
+  burger.addEventListener("click", function (e) {
+    e.stopPropagation();
+    var open = nav.classList.toggle("open");
+    burger.classList.toggle("open", open);
+    burger.setAttribute("aria-expanded", String(open));
+  });
+  document.addEventListener("click", function (e) {
+    if (window.innerWidth <= 900 && !nav.contains(e.target) && !burger.contains(e.target)) {
+      nav.classList.remove("open"); burger.classList.remove("open");
+    }
+  });
+
+  var B = "https://www.omexports.com/assets/img/productsnew/";
+  var CAT = {
+    black: "Black Granite Monument", sculpted: "Sculpted Granite Memorial",
+    statuary: "Hand-carved Statuary", detailing: "Hand-carved Detailing"
+  };
+
+  var ITEMS = [
+    ["Carved tomb in Silver Paradiso", "detailing", B + "Single%20Graves/Beatifully%20carved%20Tomb%20in%20Silver%20paradiso.jpg"],
+    ["Headstone in Indian Aruba", "sculpted", B + "Single%20Graves/Beautiful%20Headstone%20in%20Indian%20Aruba.jpg"],
+    ["Carved tombstone in Indian Black", "black", B + "Single%20Graves/Beautifully%20Carved%20Tombstone%20in%20Indian%20Black.jpg"],
+    ["Cloth on tombstone, single piece, Coro Blue", "detailing", B + "Single%20Graves/Cloth%20on%20Tombstone%20carved%20out%20of%20a%20single%20Piece%20in%20Coro%20Blue.jpg"],
+    ["Cross monument in Indian Aruba", "sculpted", B + "Single%20Graves/Cross%20Monument%20in%20Indian%20Aruba.jpg"],
+    ["Monument in Orion Blue", "sculpted", B + "Single%20Graves/Monument%20in%20Orion%20Blue.jpg"],
+
+    ["Double headstone in Orion Blue", "sculpted", B + "Family%20graves/Double%20Headstone%20in%20Orion%20Blue.jpg"],
+    ["Beautifully carved headstone in Indian Black", "black", B + "Family%20graves/Beautifully%20carved%20Headstone%20in%20Indian%20Black.jpg"],
+    ["Headstone with rolls carved, Indian Aruba", "detailing", B + "Family%20graves/Elegent%20Headstone%20with%20rolls%20carved%20in%20Indian%20Aruba.jpg"],
+    ["Double monument, hand-painted flowers, Impala", "detailing", B + "Family%20graves/Double%20Monument%20with%20hand%20painted%20flowers%20in%20impala.jpg"],
+    ["3-piece headstone, CNC cut & joined", "black", B + "Family%20graves/3%20piece%20Headstone%20cut%20and%20joined%20in%20CNC%20%20-%20Raw%20Silk%20and%20Indian%20Black.jpg"],
+    ["Grapevine carved on single Indian Black stone", "detailing", B + "Family%20graves/intricately%20carved%20Grapevine%20on%20a%20single%20Indian%20Black%20stone.jpg"],
+
+    ["Family mausoleum", "sculpted", B + "Mausoleum/Family%20Mausoleum.jpg"],
+    ["Mausoleum-style tomb in Viscont White", "sculpted", B + "Mausoleum/Large%20Mausoleum%20Style%20Tomb%20in%20Viscont%20white.jpg"],
+    ["Simple mausoleum tomb in Viscont White", "sculpted", B + "Mausoleum/Simple%20Mausoleum%20Style%20Tomb%20in%20Viscont%20White.jpg"],
+    ["Simple mausoleum tomb in Blue Pearl", "sculpted", B + "Mausoleum/Simple%20Mausoleum%20Style%20Tomb%20in%20Blue%20Pearl.jpg"],
+
+    ["Urn grave in Orion Blue", "sculpted", B + "Urn%20Graves/Beautiful%20Urn%20Grave%20in%20Orion%20Blue.jpg"],
+    ["Book set in Orion Blue", "sculpted", B + "Urn%20Graves/Book%20Set%20in%20Orion%20Blue.jpg"],
+    ["Desk set in Aruba", "sculpted", B + "Urn%20Graves/Desk%20Set%20in%20Aruba.jpg"],
+    ["Fanned design, Orion Blue & Viscont White", "sculpted", B + "Urn%20Graves/Elegant%20Fanned%20Design%20in%20Orion%20Blue%20and%20Viscont%20white.jpg"],
+    ["Rose flower carved on tomb, Sivakasi Yellow", "detailing", B + "Urn%20Graves/Beautifully%20Caved%20Rose%20flower%20on%20Tomb%20in%20Sivakasi%20Yellow.jpg"],
+
+    ["Big roses carved to perfection", "detailing", B + "Sculptures%20and%20Angels/Big%20Roses%20carved%20out%20to%20perfection.jpg"],
+    ["Custom-made swan headstone", "statuary", B + "Sculptures%20and%20Angels/Custom%20Made%20Swan%20Headstone.jpg"],
+    ["Custom stallion carving", "statuary", B + "Sculptures%20and%20Angels/Custom%20Stallion%20Carving.jpg"],
+    ["Calla lily carving", "detailing", B + "Sculptures%20and%20Angels/callas%20lilly%20Carving.JPG"],
+
+    ["6 ft Merlion", "statuary", B + "Trade%20fairs/6ft%20Merlion.jpg"],
+    ["8 ft swan from a single stone", "statuary", B + "Trade%20fairs/8%20Ft%20Swan%20made%20from%20a%20single%20piece%20of%20stone.jpg"],
+    ["8 ft handmade dragon, 3000 kg", "statuary", B + "Trade%20fairs/8ft%20handmade%20dragon%203000kgs.jpg"],
+    ["Beautifully carved pillars", "detailing", B + "Trade%20fairs/Beautifully%20carved%20pillars.jpg"],
+    ["6 ft sea horse", "statuary", B + "Trade%20fairs/6ft%20Sea%20horse.jpg"]
+  ];
+
+  function fallbackSVG(label) {
+    var svg =
+      "<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'>" +
+        "<rect width='400' height='400' fill='%23e2edfb'/>" +
+        "<rect x='150' y='95' width='100' height='210' rx='6' fill='none' stroke='%231668b3' stroke-width='3'/>" +
+        "<path d='M150 95q50 -40 100 0' fill='none' stroke='%231668b3' stroke-width='3'/>" +
+        "<text x='200' y='360' fill='%235b6b7f' font-family='Arial' font-size='16' text-anchor='middle'>" +
+          String(label).replace(/&[a-z]+;/g, "").replace(/&/g, "and") +
+        "</text>" +
+      "</svg>";
+    return "data:image/svg+xml;utf8," + svg.replace(/#/g, "%23").replace(/</g, "%3C").replace(/>/g, "%3E");
+  }
+
+  var grid = document.getElementById("grid");
+  ITEMS.forEach(function (it, idx) {
+    var fig = document.createElement("figure");
+    fig.className = "item";
+    fig.dataset.cat = it[1];
+
+    var a = document.createElement("button");
+    a.type = "button"; a.className = "shot";
+    a.setAttribute("aria-label", "View " + it[0] + " in gallery");
+    a.addEventListener("click", function () { openLightbox(idx); });
+
+    var img = document.createElement("img");
+    img.alt = it[0] + " — OMEX Stones";
+    img.loading = "lazy";
+    img.src = it[2];
+    (function (fb) { img.onerror = function () { this.onerror = null; this.src = fb; }; })(fallbackSVG(it[0]));
+    a.appendChild(img);
+
+    var cap = document.createElement("figcaption");
+    cap.innerHTML = "<span class='cat'>" + CAT[it[1]] + "</span><b>" + it[0] + "</b>";
+
+    fig.appendChild(a); fig.appendChild(cap);
+    grid.appendChild(fig);
+  });
+
+  /* ---- lightbox ---- */
+  var lb         = document.getElementById("lightbox");
+  var lbImg      = document.getElementById("lbImg");
+  var lbCat      = document.getElementById("lbCat");
+  var lbTitle    = document.getElementById("lbTitle");
+  var lbCount    = document.getElementById("lbCount");
+  var lbClose    = document.getElementById("lbClose");
+  var lbPrev     = document.getElementById("lbPrev");
+  var lbNext     = document.getElementById("lbNext");
+  var lbBackdrop = document.getElementById("lbBackdrop");
+
+  var lbCategory = "all";
+  var lbList = [];
+  var lbIndex = 0;
+
+  function buildLbList(cat) {
+    var out = [];
+    ITEMS.forEach(function (it, i) { if (cat === "all" || it[1] === cat) out.push(i); });
+    return out;
+  }
+
+  function renderLb() {
+    if (!lbList.length) return;
+    var it = ITEMS[lbList[lbIndex]];
+    lbImg.src = it[2];
+    lbImg.alt = it[0] + " — OMEX Stones";
+    lbCat.textContent = CAT[it[1]];
+    lbTitle.textContent = it[0];
+    lbCount.textContent = (lbIndex + 1) + " / " + lbList.length;
+  }
+
+  function openLightbox(itemIndex) {
+    lbCategory = ITEMS[itemIndex][1];
+    lbList = buildLbList(lbCategory);
+    lbIndex = lbList.indexOf(itemIndex);
+    renderLb();
+    lb.classList.add("open");
+    lb.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeLightbox() {
+    lb.classList.remove("open");
+    lb.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+  }
+
+  function lbStep(dir) {
+    if (!lbList.length) return;
+    lbIndex = (lbIndex + dir + lbList.length) % lbList.length;
+    renderLb();
+  }
+
+  lbClose.addEventListener("click", closeLightbox);
+  lbBackdrop.addEventListener("click", closeLightbox);
+  lbPrev.addEventListener("click", function () { lbStep(-1); });
+  lbNext.addEventListener("click", function () { lbStep(1); });
+
+  document.addEventListener("keydown", function (e) {
+    if (!lb.classList.contains("open")) return;
+    if (e.key === "Escape") closeLightbox();
+    else if (e.key === "ArrowLeft") lbStep(-1);
+    else if (e.key === "ArrowRight") lbStep(1);
+  });
+
+  var buttons = document.querySelectorAll("#filters button");
+  var items = document.querySelectorAll("#grid .item");
+  function applyFilter(f) {
+    buttons.forEach(function (b) { b.classList.toggle("active", b.dataset.filter === f); });
+    items.forEach(function (el) {
+      el.classList.toggle("hide", f !== "all" && el.dataset.cat !== f);
+    });
+  }
+  buttons.forEach(function (btn) {
+    btn.addEventListener("click", function () { applyFilter(btn.dataset.filter); });
+  });
+
+  var requested = new URLSearchParams(window.location.search).get("filter");
+  if (requested && CAT[requested]) {
+    applyFilter(requested);
+  }
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OMEX Stones — Natural Stone Products</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap">
+<style>
+  /* ============================================================
+     THEME — white background · blue header · blue icons/accents
+     ============================================================ */
+  :root {
+    --bg:         #ffffff;
+    --bg-alt:     #f1f6fc;   /* light tint for alternating sections */
+    --surface:    #ffffff;   /* cards */
+    --ink:        #16283d;   /* text / headings */
+    --muted:      #5b6b7f;   /* secondary text */
+    --blue:       #1668b3;   /* primary highlight / icons */
+    --blue-dark:  #0f4f8c;   /* hover */
+    --blue-tint:  #e2edfb;   /* chips / soft fills */
+    --header-bg:  #10385c;   /* blue header + footer bar */
+    --brand-cyan: #00a8e8;   /* OMEX wordmark accent */
+    --font-serif: Georgia, "Times New Roman", Times, serif;
+    --line:       #dbe4ef;
+    --overlay:    linear-gradient(rgba(9, 39, 66, 0.74), rgba(18, 63, 99, 0.62));
+
+    --font: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+    --header-h: 90px;
+    --subbar-h: 0px;
+    --header-total: calc(var(--header-h) + var(--subbar-h));
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: var(--header-total); scroll-snap-type: y proximity; }
+  body {
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+
+  /* ============================================================
+     HEADER (blue bar)
+     ============================================================ */
+  header.site-header {
+    position: fixed; top: 0; left: 0; right: 0;
+    height: var(--header-total);
+    display: flex; flex-direction: column;
+    background: var(--header-bg);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 2px 16px rgba(9, 39, 66, 0.25);
+    z-index: 1000;
+  }
+
+  .header-top {
+    height: var(--header-h);
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 0 clamp(1rem, 4vw, 3rem);
+  }
+
+  .logo {
+    display: flex; align-items: center; height: 100%;
+    text-decoration: none;
+  }
+  .logo .logo-img { height: clamp(64px, 10.5vw, 86px); width: auto; display: block; }
+
+  nav.main-nav ul { list-style: none; display: flex; gap: clamp(0.6rem, 2.6vw, 2.2rem); }
+  nav.main-nav a {
+    text-decoration: none; color: #ffffff;
+    font-size: clamp(0.72rem, 1.4vw, 0.85rem); font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.4px;
+    padding: 0.4rem 0.1rem; position: relative; transition: color 0.25s ease;
+  }
+  nav.main-nav a::after {
+    content: ""; position: absolute; left: 0; bottom: 0; width: 100%; height: 2px;
+    background: #7db4e6; transform: scaleX(0); transform-origin: left; transition: transform 0.3s ease;
+  }
+  nav.main-nav a:hover, nav.main-nav a.active { color: #bfe0ff; }
+  nav.main-nav a.active::after { transform: scaleX(1); }
+
+  .burger { display: none; flex-direction: column; gap: 5px; background: none; border: 0; cursor: pointer; padding: 6px; }
+  .burger span { width: 26px; height: 3px; background: #ffffff; border-radius: 2px; transition: transform 0.3s ease, opacity 0.3s ease; }
+  .burger.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+  .burger.open span:nth-child(2) { opacity: 0; }
+  .burger.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+  /* ============================================================
+     SECTIONS
+     ============================================================ */
+  section { padding: clamp(2.2rem, 6vh, 4.5rem) clamp(1.2rem, 6vw, 5rem); }
+  section:nth-of-type(even) { background: var(--bg-alt); }
+  #home, #about, #gallery, #contact { scroll-snap-align: start; }
+  #about {
+    padding-top: clamp(0.8rem, 2vh, 1.4rem);
+    padding-bottom: clamp(0.8rem, 2vh, 1.4rem);
+  }
+  #about .section-head { margin-bottom: 0.9rem; }
+  #offer { padding-top: clamp(1.2rem, 3vh, 2rem); }
+
+  .section-head { max-width: 760px; margin: 0 auto clamp(1.4rem, 4vh, 2.4rem); text-align: center; }
+  .eyebrow {
+    display: inline-block; color: var(--blue);
+    text-transform: uppercase; letter-spacing: 4px;
+    font-size: clamp(0.62rem, 1.3vw, 0.76rem); font-weight: 700; margin-bottom: 0.7rem;
+  }
+  h1 { font-size: clamp(1.9rem, 5.5vw, 3.4rem); font-weight: 800; line-height: 1.12; }
+  h2 { font-size: clamp(1.5rem, 4vw, 2.4rem); font-weight: 800; line-height: 1.15; color: var(--ink); }
+  h3 { font-size: clamp(1.05rem, 2.2vw, 1.25rem); font-weight: 700; margin-bottom: 0.4rem; }
+  p  { color: var(--muted); font-size: clamp(0.9rem, 1.7vw, 1.02rem); }
+  p + p { margin-top: 0.9rem; }
+  strong { color: var(--ink); }
+
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+    background: var(--blue); color: #fff;
+    border: 2px solid var(--blue); border-radius: 4px;
+    padding: 0.8rem 1.7rem;
+    font-family: inherit; font-weight: 700;
+    font-size: clamp(0.74rem, 1.5vw, 0.86rem);
+    letter-spacing: 1.4px; text-transform: uppercase; text-decoration: none; cursor: pointer;
+    transition: background 0.25s ease, transform 0.15s ease, color 0.25s ease, border-color 0.25s ease;
+  }
+  .btn:hover { background: var(--blue-dark); border-color: var(--blue-dark); transform: translateY(-2px); }
+  .btn.ghost { background: transparent; color: #fff; border-color: rgba(255, 255, 255, 0.7); }
+  .btn.ghost:hover { background: #fff; color: var(--blue); border-color: #fff; }
+
+  /* ============================================================
+     HERO (#home) — video, dark overlay, white text
+     ============================================================ */
+  #home {
+    position: relative; min-height: 100vh;
+    display: flex; align-items: center;
+    padding-top: calc(var(--header-total) + 2rem);
+    overflow: hidden;
+    background: linear-gradient(135deg, #123f63, #0a2c46);
+  }
+  .hero-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; border: 0; pointer-events: none; }
+  .hero-overlay { position: absolute; inset: 0; z-index: 1; background: var(--overlay); }
+  .hero-inner { position: relative; z-index: 2; max-width: 720px; margin: 0 auto; width: 100%; color: #fff; }
+  .hero-inner .kicker {
+    display: inline-block; color: #bfe0ff;
+    text-transform: uppercase; letter-spacing: 4px; font-weight: 700;
+    font-size: clamp(0.64rem, 1.5vw, 0.82rem); margin-bottom: 1rem;
+  }
+  .hero-inner h1 { margin-bottom: 1rem; }
+  .hero-inner p { color: rgba(255, 255, 255, 0.92); font-size: clamp(0.95rem, 2vw, 1.15rem); max-width: 40rem; }
+  .hero-cta { display: flex; flex-wrap: wrap; gap: 0.9rem; margin-top: 1.8rem; }
+
+  .scroll-cue {
+    position: absolute; left: 50%; bottom: 1.4rem; transform: translateX(-50%);
+    color: #dbe9f7; font-size: 0.66rem; letter-spacing: 2px; text-transform: uppercase;
+    display: flex; flex-direction: column; align-items: center; gap: 6px; z-index: 2;
+    animation: bob 2s ease-in-out infinite; text-decoration: none;
+  }
+  .scroll-cue svg { width: 18px; height: 18px; stroke: #fff; }
+  @keyframes bob { 0%,100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, 6px); } }
+
+  /* ============================================================
+     ABOUT
+     ============================================================ */
+  .about-grid {
+    max-width: 1120px; margin: 0 auto;
+    display: grid; grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(2rem, 5vw, 4rem); align-items: start;
+  }
+  .about-copy h2 { margin-bottom: 1.1rem; }
+  .about-copy p { color: #3c4d63; font-size: clamp(0.95rem, 1.7vw, 1.04rem); line-height: 1.78; }
+  .about-copy p + p { margin-top: 1rem; }
+  .about-copy .lead { color: var(--ink); font-weight: 500; font-size: clamp(1rem, 1.9vw, 1.12rem); }
+  ul.facts { list-style: none; margin-top: 1.6rem; display: grid; gap: 0.95rem; }
+  ul.facts li {
+    position: relative; padding-left: 1.8rem;
+    color: var(--ink); font-size: clamp(0.9rem, 1.55vw, 1rem); line-height: 1.55;
+  }
+  ul.facts li::before {
+    content: ""; position: absolute; left: 0; top: 0.5em;
+    width: 9px; height: 9px; background: var(--blue); border-radius: 2px; transform: rotate(45deg);
+  }
+  .about-copy .btn { margin-top: 1.9rem; }
+
+  .stat-card {
+    align-self: start;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(0.9rem, 1.8vw, 1.2rem);
+  }
+  .stat {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: 3px solid var(--blue);
+    border-radius: 12px;
+    padding: clamp(1.2rem, 2.8vw, 1.7rem);
+    box-shadow: 0 8px 22px rgba(22, 40, 61, 0.07);
+    display: flex; flex-direction: column; justify-content: center;
+    min-height: clamp(112px, 15vh, 156px);
+  }
+  .stat b { display: block; font-size: clamp(1.5rem, 3.8vw, 2.1rem); color: var(--blue); line-height: 1.05; letter-spacing: -0.5px; }
+  .stat span { display: block; margin-top: 0.45rem; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.3px; color: var(--muted); font-weight: 700; }
+
+  /* ============================================================
+     ABOUT INTRO / OFFER / WHY / QUALITY
+     ============================================================ */
+  .intro-copy { max-width: 760px; margin: 0 auto; text-align: center; }
+  .intro-copy p { color: #3c4d63; font-size: clamp(0.95rem, 1.7vw, 1.06rem); line-height: 1.78; }
+
+  .intro-images {
+    max-width: 640px; margin: clamp(1.4rem, 4vh, 2.2rem) auto 0;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(1.6rem, 4.5vw, 2.6rem);
+  }
+  .intro-images img {
+    width: 100%; height: clamp(160px, 26vw, 260px); object-fit: cover;
+    border-radius: 12px; border: 1px solid var(--line);
+    box-shadow: 0 10px 26px rgba(22, 40, 61, 0.12);
+  }
+  @media (max-width: 560px) {
+    .intro-images { grid-template-columns: 1fr; }
+    .intro-images img { height: auto; object-fit: unset; }
+  }
+
+  .offer-grid, .why-grid {
+    max-width: 1150px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1rem, 2.6vw, 1.8rem);
+  }
+  .offer-card, .why-card, .quality-card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-top: 3px solid var(--blue); border-radius: 12px;
+    padding: clamp(1.3rem, 3vw, 1.8rem);
+    box-shadow: 0 8px 22px rgba(22, 40, 61, 0.07);
+  }
+  .offer-card, .why-card { text-align: center; }
+  .offer-card h3, .why-card h3 { color: var(--ink); }
+  .offer-card p { margin-top: 0.3rem; }
+  .why-card p, .quality-card p { color: #3c4d63; font-size: clamp(0.88rem, 1.5vw, 0.98rem); line-height: 1.65; }
+  .why-card p + p, .quality-card p + p { margin-top: 0.6rem; }
+  .why-sub { color: var(--blue); font-weight: 700; margin-bottom: 0.3rem; }
+
+  .quality-grid {
+    max-width: 1150px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(1.2rem, 3vw, 2rem);
+  }
+  #quality { padding-bottom: clamp(1.2rem, 3vh, 2rem); }
+
+  .highlight-bar {
+    list-style: none; max-width: 1150px; margin: 0 auto clamp(2rem, 5vh, 3rem);
+    background: var(--header-bg); border-radius: 14px;
+    display: flex; flex-wrap: wrap; justify-content: space-between;
+    gap: 1.4rem 1rem;
+    padding: clamp(1.3rem, 3vw, 1.8rem) clamp(1.2rem, 4vw, 2.4rem);
+    box-shadow: 0 10px 30px rgba(9, 39, 66, 0.18);
+  }
+  .highlight-bar li {
+    flex: 1 1 140px; max-width: 190px;
+    display: flex; flex-direction: column; align-items: center; gap: 0.65rem;
+    text-align: center;
+  }
+  .hl-icon {
+    width: clamp(44px, 6vw, 54px); height: clamp(44px, 6vw, 54px);
+    border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.35);
+    display: flex; align-items: center; justify-content: center;
+    color: #bfe0ff; flex: 0 0 auto;
+  }
+  .hl-icon svg { width: 46%; height: 46%; }
+  .hl-text {
+    color: #ffffff; font-weight: 700; line-height: 1.3;
+    font-size: clamp(0.7rem, 1.35vw, 0.82rem);
+  }
+
+  /* ============================================================
+     OUR PROCESS
+     ============================================================ */
+  .process-panel {
+    max-width: 1150px; margin: 0 auto;
+    background: linear-gradient(135deg, #123f63, #0a2c46);
+    border-radius: 14px;
+    padding: clamp(1.3rem, 3vw, 1.8rem) clamp(1rem, 3vw, 1.8rem);
+    box-shadow: 0 10px 30px rgba(9, 39, 66, 0.18);
+  }
+  .process-panel .section-head { margin-bottom: clamp(1rem, 2.6vh, 1.4rem); }
+  .process-panel .eyebrow { color: var(--brand-cyan); font-size: clamp(0.56rem, 1.1vw, 0.68rem); }
+  .process-panel h2 { color: #ffffff; font-size: clamp(1.2rem, 3vw, 1.7rem); }
+
+  .process-bar {
+    max-width: 1080px; margin: 0 auto;
+    display: flex; align-items: flex-start; justify-content: space-between;
+    flex-wrap: wrap; gap: 0.4rem clamp(0.3rem, 1.5vw, 0.9rem);
+  }
+  .process-step {
+    display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+    flex: 1 1 110px; max-width: 150px; text-align: center;
+  }
+  .ps-icon {
+    width: clamp(36px, 4.6vw, 44px); height: clamp(36px, 4.6vw, 44px);
+    border-radius: 50%; border: 1.5px solid rgba(255, 255, 255, 0.4);
+    display: flex; align-items: center; justify-content: center;
+    color: #ffffff;
+  }
+  .ps-icon svg { width: 48%; height: 48%; }
+  .process-step b { color: #ffffff; font-size: clamp(0.7rem, 1.3vw, 0.8rem); }
+  .process-step span { color: #9fc2e0; font-size: clamp(0.58rem, 1.1vw, 0.66rem); }
+  .ps-arrow {
+    height: clamp(36px, 4.6vw, 44px);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--brand-cyan); font-size: clamp(1.6rem, 3.2vw, 2.2rem);
+    font-weight: 700; line-height: 1; align-self: flex-start;
+    margin-top: 0;
+  }
+
+  @media (max-width: 768px) {
+    .process-bar { flex-direction: column; align-items: center; gap: 0.9rem; }
+    .process-step { flex: 0 0 auto; width: 100%; max-width: 240px; }
+    .ps-arrow { margin-top: 0; align-self: center; transform: rotate(90deg); }
+  }
+
+  /* ============================================================
+     GALLERY — 8 boxes + View more
+     ============================================================ */
+  .tiles {
+    max-width: 900px; margin: 0 auto;
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: clamp(0.8rem, 2.2vw, 1.4rem);
+  }
+  figure.tile {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 12px; overflow: hidden;
+    box-shadow: 0 6px 18px rgba(22, 40, 61, 0.07);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  }
+  figure.tile:hover { transform: translateY(-5px); border-color: var(--blue); box-shadow: 0 16px 34px rgba(22, 40, 61, 0.16); }
+  figure.tile a { display: block; text-decoration: none; color: inherit; cursor: pointer; }
+  figure.tile img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+  figure.tile figcaption { padding: 0.7rem 0.85rem 0.9rem; text-align: center; }
+  figure.tile figcaption b { font-size: clamp(0.8rem, 1.5vw, 0.94rem); color: var(--ink); }
+  figure.tile figcaption span { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+
+  .viewmore-bar { display: flex; justify-content: center; margin-top: clamp(2rem, 5vh, 3rem); }
+  .viewmore {
+    display: inline-flex; align-items: center; gap: 0.7rem;
+    background: var(--blue); color: #fff; border: 0; border-radius: 999px;
+    padding: 0.55rem 0.6rem 0.55rem 1.4rem;
+    font-family: inherit; font-weight: 700;
+    font-size: clamp(0.72rem, 1.5vw, 0.84rem);
+    letter-spacing: 1.6px; text-transform: uppercase; text-decoration: none; cursor: pointer;
+    transition: background 0.25s ease, transform 0.15s ease;
+  }
+  .viewmore:hover { background: var(--blue-dark); transform: translateY(-2px); }
+  .viewmore .ic { width: 34px; height: 34px; display: grid; place-items: center; background: #fff; border-radius: 50%; }
+  .viewmore .ic svg { width: 16px; height: 16px; stroke: var(--blue); }
+
+  /* ============================================================
+     CONTACT
+     ============================================================ */
+  .contact-grid {
+    max-width: 1100px; margin: 0 auto;
+    display: grid; grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(1.5rem, 5vw, 3.5rem); align-items: start;
+  }
+  .info-list { list-style: none; display: grid; gap: 1.1rem; margin-top: 0.4rem; }
+  .info-list li { display: grid; gap: 3px; }
+  .info-list .k { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1.6px; color: var(--blue); font-weight: 700; }
+  .info-list .v { font-size: clamp(0.88rem, 1.7vw, 1rem); color: var(--ink); }
+  .info-list a { color: var(--blue); text-decoration: none; }
+  .info-list a:hover { text-decoration: underline; }
+
+  form.inquiry {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px; box-shadow: 0 10px 30px rgba(22, 40, 61, 0.08);
+    padding: clamp(1.3rem, 4vw, 2.2rem); display: grid; gap: 0.8rem;
+  }
+  form.inquiry .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+  form.inquiry label { font-size: 0.68rem; text-transform: uppercase; letter-spacing: 1px; color: var(--blue); font-weight: 700; display: block; margin-bottom: 4px; }
+  form.inquiry input, form.inquiry textarea, form.inquiry select {
+    width: 100%; background: var(--bg);
+    border: 1px solid var(--line); border-radius: 7px;
+    padding: 0.65rem 0.75rem; color: var(--ink);
+    font-family: inherit; font-size: 0.9rem; outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  form.inquiry input:focus, form.inquiry textarea:focus, form.inquiry select:focus {
+    border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-tint);
+  }
+  form.inquiry textarea { resize: vertical; min-height: 90px; }
+  form.inquiry input::placeholder,
+  form.inquiry textarea::placeholder { color: var(--blue); opacity: 1; }
+  .form-note { font-size: 0.82rem; color: var(--blue); min-height: 1em; }
+
+  /* ============================================================
+     FOOTER (blue bar)
+     ============================================================ */
+  footer.site-footer {
+    background: var(--header-bg); color: #cfe0ef;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding: clamp(0.7rem, 2vh, 1.15rem) clamp(1.2rem, 6vw, 5rem) 0.7rem;
+  }
+  .foot-top {
+    max-width: 1080px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 1.2rem 3rem; flex-wrap: wrap;
+  }
+  .foot-brand { max-width: 460px; }
+  .foot-brand .logo-img { height: clamp(52px, 8.5vw, 70px); width: auto; display: block; }
+  .foot-brand p {
+    margin-top: 0.5rem; color: #ffffff; font-size: 0.82rem; line-height: 1.6;
+    font-family: 'Bodoni Moda', Georgia, 'Times New Roman', serif; font-style: italic; font-weight: 700;
+    display: block;
+  }
+  .foot-nav { display: flex; flex-wrap: wrap; gap: 0.6rem 1.6rem; }
+  .foot-nav a {
+    color: #cfe0ef; text-decoration: none;
+    font-size: 0.76rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.3px;
+    transition: color 0.2s ease;
+  }
+  .foot-nav a:hover { color: #fff; }
+  .foot-bottom {
+    max-width: 1080px; margin: 1.5rem auto 0; padding-top: 1.1rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.72rem; color: #9fc2e0; text-align: center;
+  }
+
+  /* ============================================================
+     ABOUT & GALLERY fit one screen (desktop)
+     ============================================================ */
+  @media (min-width: 901px) {
+    #gallery {
+      padding-top: clamp(1.2rem, 3vh, 2rem);
+      padding-bottom: clamp(1.2rem, 3vh, 2rem);
+    }
+    #gallery .section-head { margin-bottom: 0.9rem; }
+    #gallery .section-head { max-width: 900px; margin-left: auto; margin-right: auto; }
+    #gallery .section-head .eyebrow { margin-bottom: 0.2rem; }
+    #gallery .section-head h2 { font-size: clamp(1.05rem, 2.1vw, 1.45rem); }
+
+    #gallery .tiles {
+      flex: 0 1 auto; min-height: 0;
+      grid-template-columns: repeat(2, 1fr);
+      gap: clamp(0.7rem, 1.6vw, 1.2rem);
+    }
+    #gallery figure.tile { min-width: 0; }
+    #gallery figure.tile figcaption { padding: 0.4rem 0.65rem 0.5rem; }
+    #gallery figure.tile figcaption span { display: none; }
+    #gallery figure.tile figcaption b { font-size: clamp(0.74rem, 1.4vw, 0.86rem); }
+    #gallery .viewmore-bar { flex: 0 0 auto; margin-top: clamp(0.9rem, 2.4vh, 1.6rem); }
+  }
+
+  @media (max-width: 900px) {
+    nav.main-nav {
+      position: fixed; top: var(--header-total); right: 0;
+      width: min(72vw, 280px);
+      background: var(--header-bg);
+      border-left: 1px solid rgba(255, 255, 255, 0.12);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      transform: translateX(110%); transition: transform 0.32s ease;
+      padding: 1.2rem 1.4rem 1.6rem;
+      box-shadow: -12px 18px 40px rgba(9, 39, 66, 0.3);
+    }
+    nav.main-nav.open { transform: translateX(0); }
+    nav.main-nav ul { flex-direction: column; gap: 0.3rem; }
+    nav.main-nav a { display: block; padding: 0.7rem 0.1rem; }
+    #gallery .section-head h2 { font-size: clamp(1rem, 4.6vw, 1.4rem); white-space: nowrap; }
+    .burger { display: flex; }
+    .about-grid, .contact-grid, .quality-grid { grid-template-columns: 1fr; }
+    .offer-grid, .why-grid { grid-template-columns: 1fr; }
+    .tiles { grid-template-columns: repeat(2, 1fr); }
+    .highlight-bar { justify-content: center; }
+    .highlight-bar li { flex: 0 1 150px; }
+    .foot-top { flex-direction: column; align-items: flex-start; gap: 1rem; }
+  }
+  @media (max-width: 520px) {
+    .tiles { grid-template-columns: 1fr; }
+    form.inquiry .row { grid-template-columns: 1fr; }
+  }
+
+</style>
+</head>
+<body>
+
+  <!-- ================= HEADER ================= -->
+  <header class="site-header">
+    <div class="header-top">
+      <a class="logo" href="#home" data-scroll>
+        <img class="logo-img" src="images/logo.png" alt="OMEX Stones" />
+      </a>
+
+      <nav class="main-nav" id="mainNav">
+        <ul>
+          <li><a href="#home"    data-scroll class="active">Home</a></li>
+          <li><a href="#about"   data-scroll>About us</a></li>
+          <li><a href="#gallery" data-scroll>Products</a></li>
+          <li><a href="#contact" data-scroll>Contact</a></li>
+        </ul>
+      </nav>
+
+      <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= HERO / HOME ================= -->
+  <section id="home">
+    <video class="hero-video" autoplay muted loop playsinline preload="auto"
+           poster="https://www.omexports.com/assets/img/marble.jpg">
+      <source src="https://www.omexports.com/assets/img/videobg1.mp4" type="video/mp4" />
+    </video>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-inner">
+      <span class="kicker">OMEX Stones</span>
+      <p>OMEX Stones specializes delivering premium natural stone products to customers
+         across the USA. We have our own manufacturing unit and have an extended network
+         for sourcing of a wide range of Natural Stone products.</p>
+      <p>From carefully selected granite blocks to finished products delivered to your
+         door, OMEX Stones gives you quality, consistency, and complete control
+         from start to finish.</p>
+      <div class="hero-cta">
+        <a class="btn" href="#gallery" data-scroll>View Products</a>
+        <a class="btn ghost" href="#contact" data-scroll>Get in Touch</a>
+      </div>
+    </div>
+
+    <a class="scroll-cue" href="#about" data-scroll aria-label="Scroll to about section">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+    </a>
+  </section>
+
+  <!-- ================= ABOUT US ================= -->
+  <section id="about">
+    <div class="section-head">
+      <span class="eyebrow">About us</span>
+      <h2>We don&rsquo;t simply source stone. We control the process.</h2>
+    </div>
+
+    <div class="intro-copy">
+      <p>With <strong>40 years of experience in the natural stone industry</strong>, OMEX Stones is a
+         trusted manufacturing and supply partner for wholesalers, retailers, monument companies, and
+         other stone professionals across the USA.</p>
+
+      <div class="intro-images">
+        <img src="images/about-1.jpg" alt="Black granite upright memorial with engraved lilies and cross" loading="lazy" />
+        <img src="images/about-2.jpg" alt="Sandstone-finish arched memorial marker on lawn" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHAT WE OFFER ================= -->
+  <section id="offer">
+    <div class="section-head">
+      <span class="eyebrow">What We Offer</span>
+    </div>
+
+    <div class="offer-grid">
+      <div class="offer-card">
+        <h3>Granite Memorials &amp; Tombstones</h3>
+        <p>Precision-manufactured granite memorial products for monument companies, wholesalers,
+           and retailers.</p>
+      </div>
+      <div class="offer-card">
+        <h3>Granite Slabs</h3>
+        <p>Quality natural stone slabs manufactured and supplied for a range of applications.</p>
+      </div>
+      <div class="offer-card">
+        <h3>Custom Stone Products</h3>
+        <p>Custom-made stone articles manufactured to your specifications and requirements.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY CHOOSE OMEX STONES ================= -->
+  <section id="why">
+    <div class="section-head">
+      <span class="eyebrow">Why Choose OMEX Stones</span>
+      <h2>Why Choose OMEX Stones</h2>
+    </div>
+
+    <ul class="highlight-bar">
+      <li>
+        <span class="hl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>
+        <span class="hl-text">Direct Control over Quality</span>
+      </li>
+      <li>
+        <span class="hl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
+        <span class="hl-text">Manufacturing and Sourcing Advantage</span>
+      </li>
+      <li>
+        <span class="hl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
+        <span class="hl-text">Direct to Door Delivery Convenience</span>
+      </li>
+      <li>
+        <span class="hl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></span>
+        <span class="hl-text">40 Years of Expertise</span>
+      </li>
+      <li>
+        <span class="hl-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg></span>
+        <span class="hl-text">End-to-End Partner</span>
+      </li>
+    </ul>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <h3>40 Years of Stone Expertise</h3>
+        <p class="why-sub"><em>More Than Just Price</em></p>
+        <p>Four decades in the natural stone industry have taught us that successful
+           stone supply is about more than just price.</p>
+        <p>It&rsquo;s about knowing the material, understanding the product, controlling the
+           process, and delivering consistently.</p>
+        <p><strong>That experience is built into everything we do.</strong></p>
+      </div>
+      <div class="why-card">
+        <h3>Manufactured In-House</h3>
+        <p class="why-sub"><em>From Block to Finished Product</em></p>
+        <p>Our own fully equipped manufacturing facility gives us control over the production
+           process from beginning to end.</p>
+        <p>From Block selection to final inspection, your products are manufactured under our
+           supervision &mdash; allowing us to maintain consistent standards and respond to your
+           specific requirements.</p>
+        <p><strong>One manufacturer. One accountable process.</strong></p>
+      </div>
+      <div class="why-card">
+        <h3>Built Around Quality</h3>
+        <p class="why-sub"><em>Material We Stand Behind</em></p>
+        <p>Quality starts with the stone itself.</p>
+        <p>With access to a substantial inventory of carefully selected granite blocks, we have
+           greater control over the materials that go into your products. We select the right
+           material for the application, rather than simply working with whatever is available.</p>
+        <p><strong>Better material. Better consistency. Better products.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= QUALITY / END-TO-END ================= -->
+  <section id="quality">
+    <div class="quality-grid">
+      <div class="quality-card">
+        <div class="section-head" style="margin-bottom:1.1rem;text-align:left;">
+          <h2>Quality Is Built In</h2>
+        </div>
+        <p class="why-sub">We Inspect What We Produce</p>
+        <p>We don&rsquo;t leave quality control to chance.</p>
+        <p>Because we manufacture our own products, we inspect them throughout the production
+           process &mdash; from raw block selection to the finished product.</p>
+        <p>Every order is checked for <strong>material, workmanship, dimensions, finish, and overall
+           quality</strong> before it leaves our facility.</p>
+        <p><strong>Our name stands behind every shipment.</strong></p>
+      </div>
+
+      <div class="quality-card">
+        <div class="section-head" style="margin-bottom:1.1rem;text-align:left;">
+          <h2>One Partner. From Order to Delivery.</h2>
+        </div>
+        <p class="why-sub">End-to-End Service</p>
+        <p>Sourcing stone shouldn&rsquo;t mean coordinating multiple suppliers, manufacturers, and
+           logistics providers.</p>
+        <p>With OMEX Stones, we manage the process from <strong>order confirmation through
+           production, quality inspection, packing, and logistics &mdash; all the way to your
+           door.</strong></p>
+        <p>You place the order.<br /><strong>We take care of the rest.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= OUR PROCESS ================= -->
+  <section id="process">
+   <div class="process-panel">
+    <div class="section-head">
+      <span class="eyebrow">Our Process</span>
+      <h2>From Block to Your Door</h2>
+    </div>
+
+    <div class="process-bar">
+      <div class="process-step">
+        <span class="ps-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 8 12 3 3 8l9 5 9-5Z"/><path d="M3 8v8l9 5 9-5V8"/><path d="M12 13v8"/></svg></span>
+        <b>From Block</b>
+        <span>(raw material)</span>
+      </div>
+      <span class="ps-arrow">&rsaquo;</span>
+      <div class="process-step">
+        <span class="ps-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15 1.65 1.65 0 0 0 3.17 14H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.14.31.22.65.22 1H21a2 2 0 0 1 0 4h-.09c-.35 0-.69.08-1 .22Z"/></svg></span>
+        <b>Production</b>
+        <span>(manufacturing)</span>
+      </div>
+      <span class="ps-arrow">&rsaquo;</span>
+      <div class="process-step">
+        <span class="ps-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/><path d="M8.5 11l1.8 1.8L14 9.2"/></svg></span>
+        <b>Quality</b>
+        <span>(inspection)</span>
+      </div>
+      <span class="ps-arrow">&rsaquo;</span>
+      <div class="process-step">
+        <span class="ps-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
+        <b>Logistics</b>
+        <span>(packing &amp; shipping)</span>
+      </div>
+      <span class="ps-arrow">&rsaquo;</span>
+      <div class="process-step">
+        <span class="ps-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/><path d="M9 21v-6h6v6"/></svg></span>
+        <b>Your Door</b>
+        <span>(delivery)</span>
+      </div>
+    </div>
+   </div>
+  </section>
+
+  <!-- ================= GALLERY ================= -->
+  <section id="gallery">
+    <div class="section-head">
+      <span class="eyebrow">Products</span>
+      <h2>Monuments &amp; custom stone work</h2>
+    </div>
+
+    <div class="tiles" id="tiles"><!-- 8 tiles via JS --></div>
+
+    <div class="viewmore-bar">
+      <a class="viewmore" href="products.html" aria-label="View more — open the products page">
+        View more
+        <span class="ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section id="contact">
+    <div class="section-head">
+      <span class="eyebrow">Contact</span>
+      <h2>Get in touch with OMEX Stones LLC</h2>
+    </div>
+
+    <div class="contact-grid">
+      <ul class="info-list">
+        <li><span class="k">Company</span><span class="v">OMEX STONES LLC</span></li>
+        <li><span class="k">Address</span><span class="v">28 Skeba Dr<br />Monroe, New Jersey &ndash; 08831,<br />United States</span></li>
+        <li><span class="k">Email</span><span class="v"><a href="mailto:info@omexstones.com">info@omexstones.com</a></span></li>
+        <li><span class="k">Website</span><span class="v"><a href="https://www.omexstones.com" target="_blank" rel="noopener">www.omexstones.com</a></span></li>
+      </ul>
+
+      <form class="inquiry" id="inquiryForm" novalidate>
+        <div class="row">
+          <div><label for="f-name">Name</label><input id="f-name" name="name" type="text" autocomplete="name" required /></div>
+          <div><label for="f-email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required /></div>
+        </div>
+        <div class="row">
+          <div><label for="f-phone">Phone</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" /></div>
+          <div>
+            <label for="f-product">Product of interest</label>
+            <select id="f-product" name="product">
+              <option>Granite tombstones</option>
+              <option>Granite slabs</option>
+              <option>Hand-carved granite</option>
+              <option>Custom / bespoke article</option>
+            </select>
+          </div>
+        </div>
+        <div><label for="f-msg">Message</label><textarea id="f-msg" name="message" placeholder="Dimensions, finish, quantity, delivery location&hellip;"></textarea></div>
+        <button class="btn" type="submit">Send inquiry</button>
+        <div class="form-note" id="formNote" role="status"></div>
+      </form>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="site-footer">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <img class="logo-img" src="images/logo.png" alt="OMEX Stones" />
+      </div>
+      <nav class="foot-nav">
+        <a href="#home" data-scroll>Home</a>
+        <a href="#about" data-scroll>About</a>
+        <a href="#gallery" data-scroll>Products</a>
+        <a href="#contact" data-scroll>Contact</a>
+      </nav>
+    </div>
+    <div class="foot-bottom">&copy; <span id="year"></span> OMEX Stones LLC &mdash; Natural Stone Products. All rights reserved.</div>
+  </footer>
+
+<script>
+(function () {
+  "use strict";
+
+  var nav      = document.getElementById("mainNav");
+  var burger   = document.getElementById("burger");
+  var navLinks = nav.querySelectorAll("a");
+
+  document.querySelectorAll('a[data-scroll]').forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      var id = a.getAttribute("href");
+      if (!id || id.charAt(0) !== "#") return;
+      var target = document.querySelector(id);
+      if (!target) return;
+      e.preventDefault();
+      target.scrollIntoView({ behavior: "smooth", block: "start" });
+      closeMenu();
+    });
+  });
+
+  function closeMenu() {
+    nav.classList.remove("open");
+    burger.classList.remove("open");
+    burger.setAttribute("aria-expanded", "false");
+  }
+  burger.addEventListener("click", function (e) {
+    e.stopPropagation();
+    var open = nav.classList.toggle("open");
+    burger.classList.toggle("open", open);
+    burger.setAttribute("aria-expanded", String(open));
+  });
+  document.addEventListener("click", function (e) {
+    if (window.innerWidth <= 900 && !nav.contains(e.target) && !burger.contains(e.target)) closeMenu();
+  });
+
+  var sections = ["home", "about", "gallery", "contact"].map(function (id) { return document.getElementById(id); });
+  var spy = new IntersectionObserver(function (entries) {
+    entries.forEach(function (en) {
+      if (!en.isIntersecting) return;
+      navLinks.forEach(function (a) {
+        a.classList.toggle("active", a.getAttribute("href") === "#" + en.target.id);
+      });
+    });
+  }, { rootMargin: "-45% 0px -50% 0px", threshold: 0 });
+  sections.forEach(function (s) { if (s) spy.observe(s); });
+
+  /* products gallery */
+  var PRODUCTS = [
+    ["Black granite monument",  "Polished, ready for engraving", "images/product-2a.jpg", "black"],
+    ["Sculpted granite memorial","Custom dual-panel design",     "images/product-2b.jpg", "sculpted"],
+    ["Hand-carved statuary",    "Custom stone sculpture",        "images/product-2c.jpg", "statuary"],
+    ["Hand-carved detailing",   "Fine rose relief carving",      "images/product-2d.jpg", "detailing"]
+  ];
+  var PALETTE = ["1668b3", "3f86c7", "123f63", "0a2c46"];
+
+  function fallbackSVG(label, i) {
+    var c = PALETTE[i % PALETTE.length];
+    var svg =
+      "<svg xmlns='http://www.w3.org/2000/svg' width='400' height='300'>" +
+        "<rect width='400' height='300' fill='%23" + c + "'/>" +
+        "<rect x='140' y='70' width='120' height='170' rx='6' fill='none' stroke='%23ffffff' stroke-width='3'/>" +
+        "<path d='M140 70q60 -45 120 0' fill='none' stroke='%23ffffff' stroke-width='3'/>" +
+        "<text x='200' y='275' fill='%23ffffff' font-family='Arial' font-size='18' text-anchor='middle'>" +
+          String(label).replace(/&[a-z]+;/g, "").replace(/&/g, "and") +
+        "</text>" +
+      "</svg>";
+    return "data:image/svg+xml;utf8," + svg.replace(/#/g, "%23").replace(/</g, "%3C").replace(/>/g, "%3E");
+  }
+
+  var tiles = document.getElementById("tiles");
+  PRODUCTS.forEach(function (p, i) {
+    var fig = document.createElement("figure");
+    fig.className = "tile";
+    var link = document.createElement("a");
+    link.href = "products.html?filter=" + p[3];
+    link.setAttribute("aria-label", "View more " + p[0] + " images");
+    var img = document.createElement("img");
+    img.alt = p[0] + " — OMEX Stones";
+    img.loading = "lazy";
+    img.src = p[2];
+    (function (fb) { img.onerror = function () { this.onerror = null; this.src = fb; }; })(fallbackSVG(p[0], i));
+    var cap = document.createElement("figcaption");
+    cap.innerHTML = "<b>" + p[0] + "</b><span>" + p[1] + "</span>";
+    link.appendChild(img); link.appendChild(cap);
+    fig.appendChild(link);
+    tiles.appendChild(fig);
+  });
+
+  /* inquiry form (client-side only) */
+  var form = document.getElementById("inquiryForm");
+  var note = document.getElementById("formNote");
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name  = form.name.value.trim();
+    var email = form.email.value.trim();
+    if (!name || !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+      note.style.color = "#c0392b";
+      note.textContent = "Please enter your name and a valid email address.";
+      return;
+    }
+    note.style.color = "";
+    note.textContent = "Thank you, " + name + " — we'll reply to " + email + " shortly.";
+    form.reset();
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
